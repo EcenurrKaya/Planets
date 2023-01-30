@@ -1,6 +1,7 @@
 package com.example.planets
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,11 +19,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        constList.add(Planets(Adi = "Mars", Aciklama = "Açıklama", R.drawable.mars))
-        constList.add(Planets(Adi = "Neptune", Aciklama = "Açıklama", R.drawable.neptune))
-        constList.add(Planets(Adi = "Jupiter", Aciklama = "Açıklama", R.drawable.jupiter))
-        constList.add(Planets(Adi = "Uranus", Aciklama = "Açıklama", R.drawable.uranus))
-        constList.add(Planets(Adi = "Venus", Aciklama = "Açıklama", R.drawable.venus))
+        constList.add(Planets("Mars", "Açıklama", R.drawable.mars))
+        constList.add(Planets("Neptune", "Açıklama", R.drawable.neptune))
+        constList.add(Planets("Jupiter", "Açıklama", R.drawable.jupiter))
+        constList.add(Planets("Uranus", "Açıklama", R.drawable.uranus))
+        constList.add(Planets("Venus", "Açıklama", R.drawable.venus))
 
         adapter=PlanetAdapter(this,constList)
         listview.adapter=adapter
@@ -56,6 +57,14 @@ class MainActivity : AppCompatActivity() {
             PlanetCard.Planetname.text = posPlanets.Adi
             PlanetCard.planet.text = posPlanets.Aciklama
             PlanetCard.planetimg.setImageResource(posPlanets.Resim!!)
+
+            PlanetCard.planetimg.setOnClickListener{
+                var intent = Intent(context,PlanetDetails::class.java)
+                intent.putExtra("Adi", posPlanets.Adi)
+                intent.putExtra("Aciklama", posPlanets.Aciklama)
+                intent.putExtra("Resim", posPlanets.Resim)
+                context!!.startActivity(intent)
+            }
             return PlanetCard
         }
 
